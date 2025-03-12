@@ -15,8 +15,15 @@ namespace EmployeeManagementNew.Controllers
         [HttpGet]
         public JsonResult GetEmployeeList()
         {
-            List<Employee> employees = dal.GetEmployees();
-            return Json(employees);
+            try
+            {
+                List<Employee> employees = dal.GetAllEmployees();
+                return Json(employees);
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = e.Message });
+            }
         }
 
         [HttpPost]
@@ -25,7 +32,7 @@ namespace EmployeeManagementNew.Controllers
             try
             {
                 dal.InsertEmployee(employee);
-                return Json(new { success = true, message = "Employee added successfully!", employee = employee });
+                return Json(new { success = true, message = "Employee Inserted successfully", employee = employee });
             }
             catch (Exception ex)
             {
@@ -39,7 +46,7 @@ namespace EmployeeManagementNew.Controllers
             try
             {
                 dal.UpdateEmployee(employee);
-                return Json(new { success = true, message = "Employee updated successfully!", employee = employee });
+                return Json(new { success = true, message = "Employee updated sucessfully", employee = employee });
             }
             catch (Exception ex)
             {
@@ -53,7 +60,7 @@ namespace EmployeeManagementNew.Controllers
             try
             {
                 dal.DeleteEmployee(id);
-                return Json(new { success = true, message = "Employee deleted successfully!", employeeId = id });
+                return Json(new { success = true, message = "Employee deleted sucessfully", id = id });
             }
             catch (Exception ex)
             {

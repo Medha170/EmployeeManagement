@@ -3,7 +3,7 @@
 *@
 @model IEnumerable<EmployeeManagementNew.Models.Employee>
 
-<h2>Employee List</h2>
+<h2>Employee Management</h2>
 <button id="btnAdd">Add New Employee</button>
 
 <table border="1" id="employeeTable">
@@ -11,8 +11,9 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Gender</th>
             <th>Salary</th>
-            <th>Department ID</th>
+            <th>Department</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -27,10 +28,15 @@
     <input type="hidden" id="empID" />
     <label for="empName">Name:</label>
     <input type="text" id="empName" /><br />
+    <label for="empGender">Gender:</label>
+    <input type="radio" id="male" name="empGender" value="Male" />
+    <label for="male">Male</label>
+    <input type="radio" id="female" name="empGender" value="Female" />
+    <label for="female">Female</label><br />
     <label for="empSalary">Salary:</label>
     <input type="text" id="empSalary" /><br />
-    <label for="empDepartmentID">Department ID:</label>
-    <input type="text" id="empDepartmentID" /><br />
+    <label for="employeeDepartment">Department:</label>
+    <select id="employeeDepartment"></select><br />
     <button id="btnSave">Save</button>
     <button id="btnCancel">Cancel</button>
 </div>
@@ -39,6 +45,7 @@
 <script>
         $(document).ready(function () {
         loadEmployees();
+        loadDepartments();
 
         // Show the modal to add a new employee
         $('#btnAdd').click(function () {
@@ -56,19 +63,44 @@
         function loadEmployees() {
             $.get('/Employee/GetEmployeeList', function (employees) {
                 var rows = '';
+                var srno = 1;
                 $.each(employees, function (index, emp) {
                     rows += '<tr>' +
-                        '<td>' + emp.id + '</td>' +
+                        '<td>' + srno + '</td>' +
                         '<td>' + emp.employeeName + '</td>' +
+                        '<td>' + emp.employeeGender + '</td>' +
                         '<td>' + emp.employeeSalary + '</td>' +
-                        '<td>' + emp.departmentID + '</td>' +
+                        '<td>' + emp.departmentName + '</td>' +
                         '<td>' +
                         '<button class="btnEdit" data-id="' + emp.id + '">Edit</button>' +
                         '<button class="btnDelete" data-id="' + emp.id + '">Delete</button>' +
                         '</td>' +
                         '</tr>';
+                    srno++;
+                    console.log(emp);
                 });
                 $('#employeeTable tbody').html(rows);
+            });
+        }
+
+         // Load departments into the department dropdown
+        function loadDepartments() {
+            $.ajax({
+                url: '/Department/getAllDepartments',
+                type: 'GET',
+                success: function (response) {
+                    if (response.success) {
+                        $('#employeeDepartment').empty();
+                        $.each(response.department, function (index, department) {
+                            $('#employeeDepartment').append(
+                                '<option value="' + department.departmentId + '">' + department.departmentName + '</option>'
+                            );
+                            console.log(department);
+                        });
+                    } else {
+                        alert(response.message);
+                    }
+                }
             });
         }
 
@@ -78,8 +110,9 @@
             var employee = {
                 id: id ? id : 0,
                 employeeName: $('#empName').val(),
+                employeeGender: $('input[name="empGender"]:checked').val(),
                 employeeSalary: $('#empSalary').val(),
-                departmentID: $('#empDepartmentID').val()
+                departmentID: $('#employeeDepartment').val()
             };
 
             if (id == 0) {
@@ -112,20 +145,28 @@
             }
         });
 
-        // Edit employee
-        $(document).on('click', '.btnEdit', function () {
-            var row = $(this).closest('tr');
-            var id = row.find('td:eq(0)').text();
-            var name = row.find('td:eq(1)').text();
-            var salary = row.find('td:eq(2)').text();
-            var departmentID = row.find('td:eq(3)').text();
+            $(document).on('click', '.btnEdit', function () {
+                var row = $(this).closest('tr');
+                var id = $(this).data('id');
+                var name = row.find('td:eq(1)').text();
+                var gender = row.find('td:eq(2)').text();
+                var salary = row.find('td:eq(3)').text();
+                var departmentName = row.find('td:eq(4)').text();
 
-            $('#empID').val(id);
-            $('#empName').val(name);
-            $('#empSalary').val(salary);
-            $('#empDepartmentID').val(departmentID);
-            $('#employeeModal').show();
-        });
+                // Set the employee details in the form
+                $('#empID').val(id);
+                $('#empName').val(name);
+                $('input[name="empGender"][value="' + gender + '"]').prop('checked', true);
+                $('#empSalary').val(salary);
+
+                // Fetch department ID using department name and set it in the dropdown
+                var departmentId = getDepartmentId(departmentName);
+                $('#employeeDepartment').val(departmentId);
+
+                // Show the modal
+                $('#employeeModal').show();
+            });
+
 
         // Delete employee
         $(document).on('click', '.btnDelete', function () {
@@ -150,9 +191,26 @@
         function resetForm() {
             $('#empID').val(0);
             $('#empName').val('');
+            $('#empGender').val('');
             $('#empSalary').val('');
-            $('#empDepartmentID').val('');
+            $('#empDepartment').val('');
         }
+
+            function getDepartmentId(departmentName) {
+                $.ajax({
+                    url: '/Department/getDepartmentId',
+                    type: 'GET',
+                    data: { departmentName: departmentName },
+                    success: function (response) {
+                        if (response.success) {
+                            // Set the department ID in the dropdown
+                            $('#employeeDepartment').val(response.departmentId);
+                        } else {
+                            alert(response.message);
+                        }
+                    }
+                });
+            }
+
     });
 </script>
-
