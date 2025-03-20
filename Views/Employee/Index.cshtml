@@ -12,6 +12,14 @@
 
 <button id="btnAdd">Add New Employee</button>
 
+<label for="rowsPerPage">Rows in this page:</label>
+<input type="number" name="rowsPerPage" id="rowsPerPage" value="5" min="1" />
+
+<div id="currentPage">
+    <span>Page number:</span>
+    <span id="number"></span>
+</div>
+
 <table border="1" id="employeeTable">
     <thead>
         <tr>
@@ -45,7 +53,7 @@
     <label for="female">Female</label><br />
 
     <label for="empSalary">Salary:</label>
-    <input type="text" id="empSalary" /><br />
+    <input type="number" step="0.01" id="empSalary" /><br />
 
     <label for="employeeDepartment">Department:</label>
     <select id="employeeDepartment"></select><br />

@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
-    const rowsPerPage = 5;
+    let rowsPerPage = parseInt($('#rowsPerPage').val()) || 5;  // Ensure it's a number
+    console.log("Initial rows per page:", rowsPerPage);
     let currentPage = 1;
     let totalPages = 0;
     let filter = 'all';
@@ -7,13 +8,6 @@
 
     loadEmployees();
     loadDepartments();
-
-    // Handle filter change event
-    $('#employeeFilter').change(function () {
-        filter = $(this).val();
-        currentPage = 1;
-        loadEmployees();
-    });
 
     // Show the modal to add a new employee
     $('#btnAdd').click(function () {
@@ -32,6 +26,21 @@
         resetForm();
     }
 
+    // Handle filter change event
+    $('#employeeFilter').change(function () {
+        filter = $(this).val();
+        currentPage = 1;
+        loadEmployees();
+    });
+
+    // Handle rows per page change event
+    $('#rowsPerPage').on('input', function () {
+        rowsPerPage = parseInt($(this).val()) || 5;  // Always convert to integer
+        console.log("Rows per page changed to:", rowsPerPage);
+        currentPage = 1;
+        loadEmployees();
+    });
+
     // Load employees from the server based on the selected filter
     function loadEmployees() {
         const url = filter === 'active' ? '/Employee/GetActiveEmployeeList' : '/Employee/GetEmployeeList';
@@ -39,11 +48,14 @@
         $.get(url, function (employees, response) {
             if (employees) {
                 employeesCache = employees;
-                totalPages = Math.ceil(employeesCache.length / rowsPerPage);
+                let maxRows = employeesCache.length;
+
+                $('#rowsPerPage').attr('max', maxRows);
+
+                totalPages = Math.ceil(employeesCache.length / rowsPerPage);  // Calculate total pages based on rowsPerPage
                 renderEmployees(employeesCache, currentPage);
                 renderPagination(totalPages);
-                //console.log(employeesCache);
-                //console.log(employees);
+                console.log("Loaded employees:", employeesCache.length, "Total Pages:", totalPages);
             } else {
                 alert(`Error: ${response.message}`);
             }
@@ -75,6 +87,7 @@
         });
 
         $('#employeeTable tbody').html(rows);
+        $('#number').text(currentPage);  // Display the current page number
     }
 
     // Render pagination controls
@@ -88,6 +101,11 @@
         $('#pagination').html(paginationHtml);
     }
 
+    // Update the current page number display
+    function updatePageNumber(page) {
+        $('#number').text(`${page}`);
+    }
+
     // Handle pagination button clicks
     $(document).on('click', '.pagination-btn', function () {
         const page = $(this).data('page');
@@ -97,6 +115,7 @@
         else if (!isNaN(page)) currentPage = parseInt(page);
 
         renderEmployees(employeesCache, currentPage);
+        updatePageNumber(currentPage);  // Update the displayed page number
     });
 
     // Load departments into the department dropdown
