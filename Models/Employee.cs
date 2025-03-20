@@ -7,6 +7,8 @@
 
         public string EmployeeGender { get; set; } = string.Empty;
 
+        public bool EmployeeActive { get; set; } = false;
+
         public decimal EmployeeSalary { get; set; }
         public int DepartmentID { get; set; }
 

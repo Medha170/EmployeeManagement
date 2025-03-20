@@ -20,6 +20,34 @@ namespace EmployeeManagementNew.Models
                     employee.ID = Convert.ToInt32(rdr["emp_ID"]);
                     employee.EmployeeName = rdr["emp_name"].ToString();
                     employee.EmployeeGender = rdr["gender"].ToString();
+                    employee.EmployeeActive = Convert.ToBoolean(rdr["isActive"]);
+                    employee.EmployeeSalary = Convert.ToDecimal(rdr["emp_salary"]);
+                    employee.DepartmentID = Convert.ToInt32(rdr["dep_ID"]);
+                    employee.DepartmentName = rdr["dep_name"].ToString();
+                    lstEmployee.Add(employee);
+                }
+                con.Close();
+            }
+            return lstEmployee;
+        }
+
+        public List<Employee> GetActiveEmployees()
+        {
+            List<Employee> lstEmployee = new List<Employee>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("manageEmployee5", con);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IsActive", 1);
+                con.Open();
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Employee employee = new Employee();
+                    employee.ID = Convert.ToInt32(rdr["emp_ID"]);
+                    employee.EmployeeName = rdr["emp_name"].ToString();
+                    employee.EmployeeGender = rdr["gender"].ToString();
+                    employee.EmployeeActive = Convert.ToBoolean(rdr["isActive"]);
                     employee.EmployeeSalary = Convert.ToDecimal(rdr["emp_salary"]);
                     employee.DepartmentID = Convert.ToInt32(rdr["dep_ID"]);
                     employee.DepartmentName = rdr["dep_name"].ToString();
@@ -38,6 +66,7 @@ namespace EmployeeManagementNew.Models
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Employee_Name", employee.EmployeeName);
                 cmd.Parameters.AddWithValue("@Employee_Gender", employee.EmployeeGender);
+                cmd.Parameters.AddWithValue("@IsActive", employee.EmployeeActive);  
                 cmd.Parameters.AddWithValue("@Employee_Salary", employee.EmployeeSalary);
                 cmd.Parameters.AddWithValue("@Department_ID", employee.DepartmentID);
                 con.Open();
@@ -55,6 +84,7 @@ namespace EmployeeManagementNew.Models
                 cmd.Parameters.AddWithValue("@ID", employee.ID);
                 cmd.Parameters.AddWithValue("@Employee_Name", employee.EmployeeName);
                 cmd.Parameters.AddWithValue("@Employee_Gender", employee.EmployeeGender);
+                cmd.Parameters.AddWithValue("@IsActive", employee.EmployeeActive);
                 cmd.Parameters.AddWithValue("@Employee_Salary", employee.EmployeeSalary);
                 cmd.Parameters.AddWithValue("@Department_ID", employee.DepartmentID);
                 con.Open();

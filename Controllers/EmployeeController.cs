@@ -26,6 +26,20 @@ namespace EmployeeManagementNew.Controllers
             }
         }
 
+        [HttpGet]
+        public JsonResult GetActiveEmployeeList()
+        {
+            try
+            {
+                List<Employee> employees = dal.GetActiveEmployees();
+                return Json(employees);
+            }
+            catch (Exception e)
+            {
+                return Json(new { success = false, message = e.Message });
+            }
+        }
+
         [HttpPost]
         public JsonResult InsertEmployee(Employee employee)
         {

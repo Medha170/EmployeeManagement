@@ -4,6 +4,12 @@
 @model IEnumerable<EmployeeManagementNew.Models.Employee>
 
 <h2>Employee Management</h2>
+
+<select id="employeeFilter">
+    <option value="all">All Employees</option>
+    <option value="active">Active Only</option>
+</select>
+
 <button id="btnAdd">Add New Employee</button>
 
 <table border="1" id="employeeTable">
@@ -14,6 +20,7 @@
             <th>Gender</th>
             <th>Salary</th>
             <th>Department</th>
+            <th>Active</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -23,24 +30,34 @@
 </table>
 <div id="pagination"></div>
 
+
 <!-- Employee Form Modal -->
 <div id="employeeModal" style="display: none;">
     <h3>Employee Form</h3>
     <input type="hidden" id="empID" />
     <label for="empName">Name:</label>
     <input type="text" id="empName" /><br />
+
     <label for="empGender">Gender:</label>
     <input type="radio" id="male" name="empGender" value="Male" />
     <label for="male">Male</label>
     <input type="radio" id="female" name="empGender" value="Female" />
     <label for="female">Female</label><br />
+
     <label for="empSalary">Salary:</label>
     <input type="text" id="empSalary" /><br />
+
     <label for="employeeDepartment">Department:</label>
     <select id="employeeDepartment"></select><br />
+
+    <!-- Active Status Checkbox -->
+    <label for="empActive">Active:</label>
+    <input type="checkbox" id="empActive" /><br />
+
     <button id="btnSave">Save</button>
     <button id="btnCancel">Cancel</button>
 </div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="~/js/script.js"></script>
