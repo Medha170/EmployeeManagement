@@ -57,7 +57,7 @@
                 renderPagination(totalPages);
                 console.log("Loaded employees:", employeesCache.length, "Total Pages:", totalPages);
             } else {
-                alert(`Error: ${response.message}`);
+                    alert("Failed to load employees.");
             }
         });
     }
