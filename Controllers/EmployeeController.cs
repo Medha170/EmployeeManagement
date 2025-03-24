@@ -12,9 +12,11 @@ namespace EmployeeManagementNew.Controllers
             return View();
         }
 
+        public ActionResult Form() { return View(); }
+
         [HttpGet]
         public JsonResult GetEmployeeList()
-        {
+       {
             try
             {
                 List<Employee> employees = dal.GetAllEmployees();

@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model EmployeeManagementNew.Models.Employee
+
+<h2>Add New Employee</h2>
+
+<form>
+    <input type="hidden" id="empID" />
+    <label for="empName">Name:</label>
+    <input type="text" id="empName" /><br />
+
+    <label for="empGender">Gender:</label>
+    <input type="radio" id="male" name="empGender" value="Male" />
+    <label for="male">Male</label>
+    <input type="radio" id="female" name="empGender" value="Female" />
+    <label for="female">Female</label><br />
+
+    <label for="empSalary">Salary:</label>
+    <input type="number" step="0.01" id="empSalary" /><br />
+
+    <label for="employeeDepartment">Department:</label>
+    <select id="employeeDepartment"></select><br />
+
+    <!-- Active Status Checkbox -->
+    <label for="empActive">Active:</label>
+    <input type="checkbox" id="empActive" /><br />
+
+    <button id="btnSave">Save</button>
+    <button id="btnCancel">Cancel</button>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/js/form.js"></script>
+

@@ -1,40 +1,52 @@
 ﻿$(document).ready(function () {
-    let rowsPerPage = parseInt($('#rowsPerPage').val()) || 5;  // Ensure it's a number
-    console.log("Initial rows per page:", rowsPerPage);
-    let currentPage = 1;
+    let rowsPerPage = parseInt($('#rowsPerPage').val()) || 5;
     let totalPages = 0;
-    let filter = 'all';
+    let currentPage = 1;
     let employeesCache = [];
+    let filter = 'all';
+    let genderFilter = 'all';
+    let departmentFilter = 'all';
+    let searchValue = '';
+    let totalEmployees = [];
 
     loadEmployees();
     loadDepartments();
 
-    // Show the modal to add a new employee
-    $('#btnAdd').click(function () {
-        resetForm();
-        $('#employeeModal').show();
+    $('#btnAdd').on('click', function () {
+        window.location.href = '/Employee/Form';
     });
 
-    // Hide the modal and reset form
-    $('#btnCancel').click(function () {
-        hideModal();
+    $('#search').on('input',function () {
+        searchValue = $('#search').val();
+        loadEmployees();
     });
-
-    // Improved Hide Modal Function
-    function hideModal() {
-        $('#employeeModal').hide();
-        resetForm();
-    }
 
     // Handle filter change event
-    $('#employeeFilter').change(function () {
+    $('#employeeFilter').on('change', function () {
         filter = $(this).val();
         currentPage = 1;
         loadEmployees();
     });
 
+    // Handle gender filter change event
+    $('#genderFilter').on('change', function () {
+        //$(this).attr('selected', true);
+        genderFilter = $(this).val();
+        console.log(genderFilter);
+        currentPage = 1;
+        loadEmployees();
+    });
+
+    // Handle department filter change event
+    $('#departmentFilter').on('change', function () {
+        departmentFilter = $(this).val();
+        console.log(departmentFilter);
+        currentPage = 1;
+        loadEmployees();
+    });
+
     // Handle rows per page change event
-    $('#rowsPerPage').on('input', function () {
+    $('#rowsPerPage').on('change', function () {
         rowsPerPage = parseInt($(this).val()) || 5;  // Always convert to integer
         console.log("Rows per page changed to:", rowsPerPage);
         currentPage = 1;
@@ -47,32 +59,51 @@
 
         $.get(url, function (employees, response) {
             if (employees) {
+                console.log(employees);
+                totalEmployees = employees;
+
+                employees = employees.filter(emp => genderFilter === 'all' || emp.employeeGender === genderFilter);
+                employees = employees.filter(emp => departmentFilter === 'all' || emp.departmentID == departmentFilter);
+
+                if (searchValue !== '') {
+                    let searchId = parseInt(searchValue);
+                    if (searchId && searchId > 0 && searchId <= employees.length) {
+                        employees = [employees[searchId - 1]];
+                    } else if (searchValue) {
+                        employees = employees.filter(emp => emp.employeeName.toLowerCase().startsWith(searchValue.toLowerCase()));
+                    }
+                    else {
+                        alert(`Employee not found with value: ${searchValue}`);
+                    }
+                }
+
                 employeesCache = employees;
                 let maxRows = employeesCache.length;
 
                 $('#rowsPerPage').attr('max', maxRows);
 
-                totalPages = Math.ceil(employeesCache.length / rowsPerPage);  // Calculate total pages based on rowsPerPage
-                renderEmployees(employeesCache, currentPage);
-                renderPagination(totalPages);
+                totalPages = Math.ceil(employeesCache.length / rowsPerPage);  // Calculate total pages
+                currentPage = Math.min(currentPage, totalPages) || 1; // Prevent out-of-range page numbers
+
+                renderEmployees(currentPage);
+                renderPagination();
                 console.log("Loaded employees:", employeesCache.length, "Total Pages:", totalPages);
             } else {
-                    alert("Failed to load employees.");
+                alert(`Error: ${response.message}`);
             }
         });
     }
 
-    // Render employees based on the current page
-    function renderEmployees(employeesCache, page) {
+    function renderEmployees(page) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         let rows = '';
-        let srno = start + 1;
+        //let srno = start + 1;
 
         $.each(employeesCache.slice(start, end), function (index, emp) {
             rows += `
                 <tr>
-                    <td>${srno}</td>
+                    <td>${totalEmployees.indexOf(emp) + 1}</td>
                     <td>${emp.employeeName}</td>
                     <td>${emp.employeeGender}</td>
                     <td>${emp.employeeSalary}</td>
@@ -83,7 +114,7 @@
                         <button class="btnDelete" data-id="${emp.id}">Delete</button>
                     </td>
                 </tr>`;
-            srno++;
+            //srno++;
         });
 
         $('#employeeTable tbody').html(rows);
@@ -91,19 +122,13 @@
     }
 
     // Render pagination controls
-    function renderPagination(totalPages) {
-        let paginationHtml = `
-            <button class="pagination-btn" data-page="prev">Prev</button>`;
+    function renderPagination() {
+        let paginationHtml = `<button class="pagination-btn" data-page="prev">Prev</button>`;
         for (let i = 1; i <= totalPages; i++) {
-            paginationHtml += `<button class="pagination-btn" data-page="${i}">${i}</button>`;
+            paginationHtml += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
         }
         paginationHtml += `<button class="pagination-btn" data-page="next">Next</button>`;
         $('#pagination').html(paginationHtml);
-    }
-
-    // Update the current page number display
-    function updatePageNumber(page) {
-        $('#number').text(`${page}`);
     }
 
     // Handle pagination button clicks
@@ -114,72 +139,13 @@
         else if (page === 'next' && currentPage < totalPages) currentPage++;
         else if (!isNaN(page)) currentPage = parseInt(page);
 
-        renderEmployees(employeesCache, currentPage);
-        updatePageNumber(currentPage);  // Update the displayed page number
+        renderEmployees(currentPage);
+        renderPagination();
     });
 
-    // Load departments into the department dropdown
-    function loadDepartments() {
-        $.get('/Department/getAllDepartments', function (response) {
-            if (response.success) {
-                $('#employeeDepartment').empty();
-                $.each(response.department, function (index, department) {
-                    $('#employeeDepartment').append(
-                        `<option value="${department.departmentId}">${department.departmentName}</option>`
-                    );
-                });
-            } else {
-                alert(`Error: ${response.message}`);
-            }
-        });
-    }
-
-    // Save employee (Insert or Update)
-    $('#btnSave').click(function () {
-        const id = $('#empID').val();
-        const employee = {
-            id: id ? id : 0,
-            employeeName: $('#empName').val(),
-            employeeGender: $('input[name="empGender"]:checked').val(),
-            employeeSalary: $('#empSalary').val(),
-            departmentID: $('#employeeDepartment').val(),
-            employeeActive: $('#empActive').is(':checked')
-        };
-
-        const url = id == 0 ? '/Employee/InsertEmployee' : '/Employee/UpdateEmployee';
-        const method = id == 0 ? 'POST' : 'PUT';
-
-        $.ajax({
-            url: url,
-            type: method,
-            data: employee,
-            success: function (response) {
-                alert(response.message);
-                if (response.success) {
-                    loadEmployees();
-                    hideModal();
-                }
-            },
-            error: function (xhr) {
-                alert(`Error: ${xhr.responseText}`);
-            }
-        });
-    });
-
-    // Edit Employee
     $(document).on('click', '.btnEdit', function () {
         const id = $(this).data('id');
-        const employee = employeesCache.find(emp => emp.id === id);
-
-        if (employee) {
-            $('#empID').val(employee.id);
-            $('#empName').val(employee.employeeName);
-            $('input[name="empGender"][value="' + employee.employeeGender + '"]').prop('checked', true);
-            $('#empSalary').val(employee.employeeSalary);
-            $('#employeeDepartment').val(employee.departmentID);
-            $('#empActive').prop('checked', employee.employeeActive);
-            $('#employeeModal').show();
-        }
+        window.location.href = `/Employee/Form/${id}`;
     });
 
     // Delete Employee
@@ -203,13 +169,19 @@
         }
     });
 
-    // Reset form fields
-    function resetForm() {
-        $('#empID').val(0);
-        $('#empName').val('');
-        $('input[name="empGender"]').prop('checked', false);
-        $('#empSalary').val('');
-        $('#employeeDepartment').val('');
-        $('#empActive').prop('checked', false);
+    // Load departments into the department dropdown
+    function loadDepartments() {
+        $.get('/Department/getAllDepartments', function (response) {
+            if (response.success) {
+                //$('#departmentFilter').empty();
+                $.each(response.department, function (index, department) {
+                    $('#departmentFilter').append(
+                        `<option value="${department.departmentId}">${department.departmentName}</option>`
+                    );
+                });
+            } else {
+                alert(`Error: ${response.message}`);
+            }
+        });
     }
 });
