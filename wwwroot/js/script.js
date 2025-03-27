@@ -67,9 +67,6 @@
 
                 if (searchValue !== '') {
                     let searchId = parseInt(searchValue);
-                    if (searchId && searchId > 0 && searchId <= employees.length) {
-                        employees = [employees[searchId - 1]];
-                    } else if (searchValue) {
                         employees = employees.filter(emp => emp.employeeName.toLowerCase().startsWith(searchValue.toLowerCase()));
                     }
                     else {
