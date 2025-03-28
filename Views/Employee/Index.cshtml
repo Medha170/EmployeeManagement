@@ -3,42 +3,43 @@
 *@
 @model IEnumerable<EmployeeManagementNew.Models.Employee>
 
+
+<link rel="stylesheet" href="~/css/style.css" />
+
 <h2>Employee Management</h2>
 
-<select id="employeeFilter">
-    <option value="all" default>All Employees</option>
-    <option value="active">Active Only</option>
-</select>
+<div class="addEmployee">
+    <button id="btnAdd">Add New Employee</button>
+</div>
 
-<select id="genderFilter">
-    <option value="" disabled selected hidden>Search By Gender</option>
-    <option value="Male">Male</option>
-    <option value="Female">Female</option>
-    <option value="all" default>None</option>
-</select>
+<div class='filter-search'>
+    <select id="employeeFilter">
+        <option value="all" default>All Employees</option>
+        <option value="active">Active Only</option>
+    </select>
 
-<select id="departmentFilter">
-    <option value="" disabled selected hidden>Search By Department</option>
-    <option value="all" default>None</option>
-</select>
+    <div class="search">
+        <input type="search" id="search" placeholder="Search by ID/SearchTerm" />
+        <button id="btnSearch">Search</button>
+    </div>
+</div>
 
-<input type="text" id="search" placeholder="Search by Name/ID" />
+<div class="pgNumber">
+    <div class="rowsPerPage">
+        <label for="rowsPerPage">Rows in this page:</label>
+        <input type="number" name="rowsPerPage" id="rowsPerPage" value="5" min="1" />
+    </div>
 
-<button id="btnAdd">Add New Employee</button>
-
-<br />
-
-<label for="rowsPerPage">Rows in this page:</label>
-<input type="number" name="rowsPerPage" id="rowsPerPage" value="5" min="1" />
-
-<div id="currentPage">
-    <span>Page number:</span>
-    <span id="number"></span>
+    <div id="currentPage" class="currentPage">
+        <span>Page number:</span>
+        <span id="number"></span>
+    </div>
 </div>
 
 <table border="1" id="employeeTable">
     <thead>
         <tr>
+            <th>SrNo</th>
             <th>ID</th>
             <th>Name</th>
             <th>Gender</th>
@@ -52,7 +53,7 @@
         <!-- Dynamic employee rows will be loaded here -->
     </tbody>
 </table>
-<div id="pagination"></div>
+<div id="pagination" class="pagination"></div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

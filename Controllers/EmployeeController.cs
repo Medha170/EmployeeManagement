@@ -15,6 +15,20 @@ namespace EmployeeManagementNew.Controllers
         public ActionResult Form() { return View(); }
 
         [HttpGet]
+        public JsonResult SearchEmployee(string searchTerm)
+        {
+            try
+            {
+                List<Employee> employees = dal.SearchEmployee(searchTerm);
+                return Json(employees);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpGet]
         public JsonResult GetEmployeeList()
        {
             try

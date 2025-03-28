@@ -4,21 +4,28 @@
     let currentPage = 1;
     let employeesCache = [];
     let filter = 'all';
-    let genderFilter = 'all';
-    let departmentFilter = 'all';
     let searchValue = '';
-    let totalEmployees = [];
+    let searchCache = [];
 
     loadEmployees();
-    loadDepartments();
 
     $('#btnAdd').on('click', function () {
         window.location.href = '/Employee/Form';
     });
 
-    $('#search').on('input',function () {
-        searchValue = $('#search').val();
-        loadEmployees();
+    $('#search').on('input', function () {
+        searchValue = $(this).val().trim();
+        searchEmployees();
+    });
+
+    $('#btnSearch').on('click', function () {
+        if (searchCache.length === 0) {
+            alert("No Employees found");
+            $('#search').val('');
+            searchValue = '';
+            searchCache = [];
+            loadEmployees();  // Reset table
+        }
     });
 
     // Handle filter change event
@@ -28,30 +35,47 @@
         loadEmployees();
     });
 
-    // Handle gender filter change event
-    $('#genderFilter').on('change', function () {
-        //$(this).attr('selected', true);
-        genderFilter = $(this).val();
-        console.log(genderFilter);
-        currentPage = 1;
-        loadEmployees();
-    });
-
-    // Handle department filter change event
-    $('#departmentFilter').on('change', function () {
-        departmentFilter = $(this).val();
-        console.log(departmentFilter);
-        currentPage = 1;
-        loadEmployees();
-    });
-
     // Handle rows per page change event
     $('#rowsPerPage').on('change', function () {
         rowsPerPage = parseInt($(this).val()) || 5;  // Always convert to integer
-        console.log("Rows per page changed to:", rowsPerPage);
         currentPage = 1;
         loadEmployees();
     });
+
+    function searchEmployees() {
+        let searchId = parseInt(searchValue.trim());
+
+        if (!isNaN(searchId)) {
+            searchCache = employeesCache.filter(emp => emp.id === searchId);
+            updateTable();
+        } else if (searchValue.trim() !== '') {
+            $.get(`/Employee/SearchEmployee?searchTerm=${encodeURIComponent(searchValue)}`, function (employees, response) {
+                if (employees.length > 0) {
+                    searchCache = employees;
+                } else {
+                    searchCache = [];  // Clear the search cache
+                }
+                updateTable();
+            }).fail(function () {
+                alert("Error retrieving search results.");
+            });
+        } else {
+            // If search is empty, clear results and reset table
+            searchCache = [];
+            //updateTable();
+            renderEmployees(employeesCache, currentPage);
+            renderPagination();
+        }
+    }
+
+    function updateTable() {
+        if (searchCache.length > 0) {
+            renderEmployees(searchCache, 1);
+        } else {
+            $('#employeeTable tbody').empty(); // Clear the table if no results
+        }
+        renderPagination();
+    }
 
     // Load employees from the server based on the selected filter
     function loadEmployees() {
@@ -59,20 +83,6 @@
 
         $.get(url, function (employees, response) {
             if (employees) {
-                console.log(employees);
-                totalEmployees = employees;
-
-                employees = employees.filter(emp => genderFilter === 'all' || emp.employeeGender === genderFilter);
-                employees = employees.filter(emp => departmentFilter === 'all' || emp.departmentID == departmentFilter);
-
-                if (searchValue !== '') {
-                    let searchId = parseInt(searchValue);
-                        employees = employees.filter(emp => emp.employeeName.toLowerCase().startsWith(searchValue.toLowerCase()));
-                    }
-                    else {
-                        alert(`Employee not found with value: ${searchValue}`);
-                    }
-                }
 
                 employeesCache = employees;
                 let maxRows = employeesCache.length;
@@ -82,25 +92,24 @@
                 totalPages = Math.ceil(employeesCache.length / rowsPerPage);  // Calculate total pages
                 currentPage = Math.min(currentPage, totalPages) || 1; // Prevent out-of-range page numbers
 
-                renderEmployees(currentPage);
+                renderEmployees(employeesCache, currentPage);
                 renderPagination();
-                console.log("Loaded employees:", employeesCache.length, "Total Pages:", totalPages);
             } else {
                 alert(`Error: ${response.message}`);
             }
         });
     }
 
-    function renderEmployees(page) {
+    function renderEmployees(cache,page) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         let rows = '';
-        //let srno = start + 1;
 
-        $.each(employeesCache.slice(start, end), function (index, emp) {
+        $.each(cache.slice(start, end), function (index, emp) {
             rows += `
                 <tr>
-                    <td>${totalEmployees.indexOf(emp) + 1}</td>
+                    <td>${start + index + 1}</td>
+                    <td>${emp.id}</td>
                     <td>${emp.employeeName}</td>
                     <td>${emp.employeeGender}</td>
                     <td>${emp.employeeSalary}</td>
@@ -111,7 +120,6 @@
                         <button class="btnDelete" data-id="${emp.id}">Delete</button>
                     </td>
                 </tr>`;
-            //srno++;
         });
 
         $('#employeeTable tbody').html(rows);
@@ -136,7 +144,9 @@
         else if (page === 'next' && currentPage < totalPages) currentPage++;
         else if (!isNaN(page)) currentPage = parseInt(page);
 
-        renderEmployees(currentPage);
+        let cache = searchCache.length === 0 ? employeesCache : searchCache;
+
+        renderEmployees(cache, currentPage);
         renderPagination();
     });
 
@@ -165,20 +175,4 @@
             });
         }
     });
-
-    // Load departments into the department dropdown
-    function loadDepartments() {
-        $.get('/Department/getAllDepartments', function (response) {
-            if (response.success) {
-                //$('#departmentFilter').empty();
-                $.each(response.department, function (index, department) {
-                    $('#departmentFilter').append(
-                        `<option value="${department.departmentId}">${department.departmentName}</option>`
-                    );
-                });
-            } else {
-                alert(`Error: ${response.message}`);
-            }
-        });
-    }
 });

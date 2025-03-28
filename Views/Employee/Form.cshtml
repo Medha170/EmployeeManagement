@@ -4,31 +4,47 @@
 
 @model EmployeeManagementNew.Models.Employee
 
+<link rel="stylesheet" href="~/css/style.css" />
+
 <h2>Add New Employee</h2>
 
 <form>
     <input type="hidden" id="empID" />
-    <label for="empName">Name:</label>
-    <input type="text" id="empName" /><br />
 
-    <label for="empGender">Gender:</label>
-    <input type="radio" id="male" name="empGender" value="Male" />
-    <label for="male">Male</label>
-    <input type="radio" id="female" name="empGender" value="Female" />
-    <label for="female">Female</label><br />
+    <div class="name">
+        <label for="empName">Name:</label>
+        <input type="text" id="empName" placeholder='ex. "John Doe"'/>
+    </div>
 
-    <label for="empSalary">Salary:</label>
-    <input type="number" step="0.01" id="empSalary" /><br />
+    <div class="gender">
+        <label for="empGender">Gender:</label>
+        <div class="genderVal">
+            <input type="radio" id="male" name="empGender" value="Male" />
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="empGender" value="Female" />
+            <label for="female">Female</label>
+        </div>
+    </div>
 
-    <label for="employeeDepartment">Department:</label>
-    <select id="employeeDepartment"></select><br />
+    <div class="salary">
+        <label for="empSalary">Salary:</label>
+        <input type="number" step="0.01" id="empSalary" placeholder='ex. "100000.00"'/>
+    </div>
 
-    <!-- Active Status Checkbox -->
-    <label for="empActive">Active:</label>
-    <input type="checkbox" id="empActive" /><br />
+    <div class="department">
+        <label for="employeeDepartment">Department:</label>
+        <select id="employeeDepartment"></select>
+    </div>
 
-    <button id="btnSave">Save</button>
-    <button id="btnCancel">Cancel</button>
+    <div class="active">
+        <label for="empActive">Active:</label>
+        <input type="checkbox" id="empActive" />
+    </div>
+
+    <div class="form-button">
+        <button id="btnSave">Save</button>
+        <button id="btnCancel">Cancel</button>
+    </div>
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
