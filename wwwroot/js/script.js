@@ -43,12 +43,7 @@
     });
 
     function searchEmployees() {
-        let searchId = parseInt(searchValue.trim());
-
-        if (!isNaN(searchId)) {
-            searchCache = employeesCache.filter(emp => emp.id === searchId);
-            updateTable();
-        } else if (searchValue.trim() !== '') {
+        if (searchValue.trim() !== '') {
             $.get(`/Employee/SearchEmployee?searchTerm=${encodeURIComponent(searchValue)}`, function (employees, response) {
                 if (employees.length > 0) {
                     searchCache = employees;
@@ -63,13 +58,13 @@
             // If search is empty, clear results and reset table
             searchCache = [];
             //updateTable();
-            renderEmployees(employeesCache, currentPage);
-            renderPagination();
+            loadEmployees();
         }
     }
 
     function updateTable() {
         if (searchCache.length > 0) {
+            totalPages = Math.ceil(searchCache.length / rowsPerPage)
             renderEmployees(searchCache, 1);
         } else {
             $('#employeeTable tbody').empty(); // Clear the table if no results
@@ -110,7 +105,7 @@
                 <tr>
                     <td>${start + index + 1}</td>
                     <td>${emp.id}</td>
-                    <td>${emp.employeeName}</td>
+                    <td><a href="/Employee/Form/${emp.id}" style="text-decoration: none; color: black;">${emp.employeeName}</a></td>
                     <td>${emp.employeeGender}</td>
                     <td>${emp.employeeSalary}</td>
                     <td>${emp.departmentName}</td>
