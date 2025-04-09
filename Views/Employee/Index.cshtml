@@ -36,16 +36,78 @@
     </div>
 </div>
 
+<div class="getDeleted">
+    <input type="checkbox" id="deleted" />
+    <label for="deleted">Also show deleted employees</label>
+</div>
+
 <table border="1" id="employeeTable">
     <thead>
         <tr>
             <th>SrNo</th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Salary</th>
-            <th>Department</th>
-            <th>Active</th>
+            <th>
+                <div class="header-container">
+                    ID 
+                    <span class="sort-icons">
+                        <span class="sort-up" data-column="ID">⯅</span><br>
+                        <span class="sort-down" data-column="ID">⯆</span>
+                    </span>
+                </div>
+            </th>
+            <th>
+                <div class="header-container">
+                    Name 
+                    <span class="sort-icons">
+                        <span class="sort-up" data-column="Name">⯅</span><br>
+                        <span class="sort-down" data-column="Name">⯆</span>
+                    </span>
+                </div>
+            </th>
+            <th>
+                <div class="header-container">
+                    Gender 
+                    <span class="sort-icons">
+                        <span class="sort-up" data-column="Gender">⯅</span><br>
+                        <span class="sort-down" data-column="Gender">⯆</span>
+                    </span>
+                </div>
+            </th>
+            <th>
+                <div class="header-container">
+                    Salary 
+                    <span class="sort-icons">
+                        <span class="sort-up" data-column="Salary">⯅</span><br>
+                        <span class="sort-down" data-column="Salary">⯆</span>
+                    </span>
+                </div>
+            </th>
+            <th>
+                <div class="header-container">
+                    Department 
+                    <span class="sort-icons">
+                        <span class="sort-up" data-column="Department">⯅</span><br>
+                        <span class="sort-down" data-column="Department">⯆</span>
+                    </span>
+                </div>
+            </th>
+            <th>
+                <div class="header-container">
+                    Active
+                    <span class="sort-icons">
+                        <span class="sort-up" data-column="Active">⯅</span><br>
+                        <span class="sort-down" data-column="Active">⯆</span>
+                    </span>
+                </div>
+            </th>
+            <th>
+                <div class="header-container">
+                    isDeleted
+                    <span class="sort-icons">
+                        <span class="sort-up" data-column="isDeleted">⯅</span><br>
+                        <span class="sort-down" data-column="isDeleted">⯆</span>
+                    </span>
+                </div>
+            </th>
             <th>Actions</th>
         </tr>
     </thead>

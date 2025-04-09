@@ -40,7 +40,8 @@ namespace EmployeeManagementNew.Models
                         EmployeeActive = Convert.ToBoolean(rdr["isActive"]),
                         EmployeeSalary = Convert.ToDecimal(rdr["emp_salary"]),
                         DepartmentID = Convert.ToInt32(rdr["dep_ID"]),
-                        DepartmentName = rdr["dep_name"].ToString()
+                        DepartmentName = rdr["dep_name"].ToString(),
+                        EmployeeDeleted = Convert.ToBoolean(rdr["isDeleted"])
                     };
                     employees.Add(emp);
                 }
@@ -60,66 +61,70 @@ namespace EmployeeManagementNew.Models
             return employees;
         }
 
-
-        public List<Employee> GetAllEmployees()
+        public List<Employee> GetAllEmployees(bool showDeleted)
         {
-            List<Employee> lstEmployee = new List<Employee>();
-            if (result == -1 || searchCalled == false)
+            List<Employee> employees = new List<Employee>();
+            if (result != -1 || !searchCalled)
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("manageEmployee5", con);
+                    SqlCommand cmd = new SqlCommand("manageEmployee5", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
-                    con.Open();
+                    cmd.Parameters.AddWithValue("@showDeleted", showDeleted ? 1 : 0);
+                    conn.Open();
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-                        Employee employee = new Employee();
-                        employee.ID = Convert.ToInt32(rdr["emp_ID"]);
-                        employee.EmployeeName = rdr["emp_name"].ToString();
-                        employee.EmployeeGender = rdr["gender"].ToString();
-                        employee.EmployeeActive = Convert.ToBoolean(rdr["isActive"]);
-                        employee.EmployeeSalary = Convert.ToDecimal(rdr["emp_salary"]);
-                        employee.DepartmentID = Convert.ToInt32(rdr["dep_ID"]);
-                        employee.DepartmentName = rdr["dep_name"].ToString();
-                        lstEmployee.Add(employee);
+                        Employee emp = new Employee
+                        {
+                            ID = Convert.ToInt32(rdr["emp_ID"]),
+                            EmployeeName = rdr["emp_name"].ToString(),
+                            EmployeeGender = rdr["gender"].ToString(),
+                            EmployeeActive = Convert.ToBoolean(rdr["isActive"]),
+                            EmployeeSalary = Convert.ToDecimal(rdr["emp_salary"]),
+                            DepartmentID = Convert.ToInt32(rdr["dep_ID"]),
+                            DepartmentName = rdr["dep_name"].ToString(),
+                            EmployeeDeleted = Convert.ToBoolean(rdr["isDeleted"])
+                        };
+                        employees.Add(emp);
                     }
-                    con.Close();
                 }
             }
-            return lstEmployee;
+            return employees;
         }
 
-        public List<Employee> GetActiveEmployees()
+        public List<Employee> GetActiveEmployees(bool showDeleted)
         {
-            List<Employee> lstEmployee = new List<Employee>();
-            if (result != -1 || searchCalled == false)
+            List<Employee> employees = new List<Employee>();
+            if (result != -1 || !searchCalled)
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("manageEmployee5", con);
+                    SqlCommand cmd = new SqlCommand("manageEmployee5", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@showDeleted", showDeleted ? 1 : 0);
                     cmd.Parameters.AddWithValue("@IsActive", 1);
-                    con.Open();
+                    conn.Open();
                     SqlDataReader rdr = cmd.ExecuteReader();
                     while (rdr.Read())
                     {
-                        Employee employee = new Employee();
-                        employee.ID = Convert.ToInt32(rdr["emp_ID"]);
-                        employee.EmployeeName = rdr["emp_name"].ToString();
-                        employee.EmployeeGender = rdr["gender"].ToString();
-                        employee.EmployeeActive = Convert.ToBoolean(rdr["isActive"]);
-                        employee.EmployeeSalary = Convert.ToDecimal(rdr["emp_salary"]);
-                        employee.DepartmentID = Convert.ToInt32(rdr["dep_ID"]);
-                        employee.DepartmentName = rdr["dep_name"].ToString();
-                        lstEmployee.Add(employee);
+                        Employee emp = new Employee
+                        {
+                            ID = Convert.ToInt32(rdr["emp_ID"]),
+                            EmployeeName = rdr["emp_name"].ToString(),
+                            EmployeeGender = rdr["gender"].ToString(),
+                            EmployeeActive = Convert.ToBoolean(rdr["isActive"]),
+                            EmployeeSalary = Convert.ToDecimal(rdr["emp_salary"]),
+                            DepartmentID = Convert.ToInt32(rdr["dep_ID"]),
+                            DepartmentName = rdr["dep_name"].ToString(),
+                            EmployeeDeleted = Convert.ToBoolean(rdr["isDeleted"])
+                        };
+                        employees.Add(emp);
                     }
-                    con.Close();
                 }
             }
-            return lstEmployee;
+            return employees;
         }
-
         public void InsertEmployee(Employee employee)
         {
             using (SqlConnection con = new SqlConnection(connectionString))

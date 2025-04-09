@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(document).ready(function () { 
     let rowsPerPage = parseInt($('#rowsPerPage').val()) || 5;
     let totalPages = 0;
     let currentPage = 1;
@@ -6,6 +6,12 @@
     let filter = 'all';
     let searchValue = '';
     let searchCache = [];
+    let showDeleted = false;
+
+    $('#deleted').on('change', function () {
+        showDeleted = $(this).prop('checked');
+        loadEmployees();
+    }); 
 
     loadEmployees();
 
@@ -42,6 +48,52 @@
         loadEmployees();
     });
 
+    $(".sort-up, .sort-down").on('click', function () {
+        const column = $(this).data('column');
+        const order = $(this).hasClass('sort-up') ? 'asc' : 'desc';
+
+        let cache = searchCache.length > 0 ? searchCache : employeesCache;
+        applySorting(cache, column, order);
+
+        // Re-render table from first page after sorting
+        renderEmployees(cache, 1);
+        renderPagination();
+    });
+
+    function applySorting(cache, column, order) {
+        cache.sort((a, b) => {
+            if (column === 'ID') {
+                return order === 'asc' ? a.id - b.id : b.id - a.id;
+            }
+
+            if (column === 'Name') {
+                return order === 'asc' ? a.employeeName.localeCompare(b.employeeName) : b.employeeName.localeCompare(a.employeeName);
+            }
+
+            if (column === 'Gender') {
+                return order === 'asc' ? a.employeeGender.localeCompare(b.employeeGender) : b.employeeGender.localeCompare(a.employeeGender);
+            }
+
+            if (column === 'Salary') {
+                return order === 'asc' ? a.employeeSalary - b.employeeSalary : b.employeeSalary - a.employeeSalary;
+            }
+
+            if (column === 'Department') {
+                return order === 'asc' ? a.departmentName.localeCompare(b.departmentName) : b.departmentName.localeCompare(a.departmentName);
+            }
+
+            if (column === 'Active') {
+                return order === 'asc' ? a.employeeActive - b.employeeActive : b.employeeActive - a.employeeActive;
+            }
+
+            if (column === 'isDeleted') {
+                return order === 'asc' ? a.employeeDeleted - b.employeeDeleted : b.employeeDeleted - a.employeeDeleted;
+            }
+
+            return 0;
+        });
+    }
+
     function searchEmployees() {
         if (searchValue.trim() !== '') {
             $.get(`/Employee/SearchEmployee?searchTerm=${encodeURIComponent(searchValue)}`, function (employees, response) {
@@ -67,6 +119,7 @@
             totalPages = Math.ceil(searchCache.length / rowsPerPage)
             renderEmployees(searchCache, 1);
         } else {
+            totalPages = 1;
             $('#employeeTable tbody').empty(); // Clear the table if no results
         }
         renderPagination();
@@ -74,7 +127,7 @@
 
     // Load employees from the server based on the selected filter
     function loadEmployees() {
-        const url = filter === 'active' ? '/Employee/GetActiveEmployeeList' : '/Employee/GetEmployeeList';
+        const url = filter === 'active' ? `/Employee/GetActiveEmployeeList?showDeleted=${encodeURIComponent(showDeleted)}` : `/Employee/GetEmployeeList?showDeleted=${encodeURIComponent(showDeleted)}`;
 
         $.get(url, function (employees, response) {
             if (employees) {
@@ -92,6 +145,8 @@
             } else {
                 alert(`Error: ${response.message}`);
             }
+        }).fail(function () {
+            alert("Error loading employees.");
         });
     }
 
@@ -110,6 +165,7 @@
                     <td>${emp.employeeSalary}</td>
                     <td>${emp.departmentName}</td>
                     <td>${emp.employeeActive ? 'Yes' : 'No'}</td>
+                    <td>${emp.employeeDeleted ? 'Yes' : 'No'}</td>
                     <td>
                         <button class="btnEdit" data-id="${emp.id}">Edit</button>
                         <button class="btnDelete" data-id="${emp.id}">Delete</button>

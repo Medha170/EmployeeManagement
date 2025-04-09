@@ -14,5 +14,6 @@
 
         public string DepartmentName { get; set; } = string.Empty;
 
+        public bool EmployeeDeleted { get; set; } = false;
     }
 }

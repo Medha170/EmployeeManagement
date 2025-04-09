@@ -29,11 +29,11 @@ namespace EmployeeManagementNew.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetEmployeeList()
-       {
+        public JsonResult GetEmployeeList(bool showDeleted)
+        {
             try
             {
-                List<Employee> employees = dal.GetAllEmployees();
+                List<Employee> employees = dal.GetAllEmployees(showDeleted);
                 return Json(employees);
             }
             catch (Exception e)
@@ -43,11 +43,11 @@ namespace EmployeeManagementNew.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetActiveEmployeeList()
+        public JsonResult GetActiveEmployeeList(bool showDeleted)
         {
             try
             {
-                List<Employee> employees = dal.GetActiveEmployees();
+                List<Employee> employees = dal.GetActiveEmployees(showDeleted);
                 return Json(employees);
             }
             catch (Exception e)
