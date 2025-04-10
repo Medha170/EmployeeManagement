@@ -5,7 +5,12 @@ namespace EmployeeManagementNew.Models
 {
     public class EmployeeDAL
     {
-        string connectionString = "Data Source=DESKTOP-9II8JBF\\SQLEXPRESS;Initial Catalog=employee;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private readonly string connectionString;
+
+        public EmployeeDAL(IConfiguration configuration)
+        {
+            connectionString = configuration.GetConnectionString("DefaultConnection");
+        }
 
         int result = 0;
 

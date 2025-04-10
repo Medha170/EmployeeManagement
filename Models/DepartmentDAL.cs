@@ -4,7 +4,11 @@ namespace EmployeeManagementNew.Models
 {
     public class DepartmentDAL
     {
-        string connectionString = "Data Source=DESKTOP-9II8JBF\\SQLEXPRESS;Initial Catalog=employee;Integrated Security=True;Encrypt=True;Trust Server Certificate=True";
+        private readonly string connectionString;
+
+        public DepartmentDAL(IConfiguration configuration){
+            connectionString = configuration.GetConnectionString("DefaultConnection");
+        }
         public List<Department> GetAllDepartments()
         {
             List<Department> lstDepartment = new List<Department>();

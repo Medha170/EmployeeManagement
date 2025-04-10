@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+    <History>True|2025-04-10T10:46:52.3389152Z||;True|2025-04-10T16:09:33.5728586+05:30||;True|2025-04-10T16:02:11.8883289+05:30||;True|2025-04-10T15:32:39.5676014+05:30||;True|2025-04-10T15:13:10.8919604+05:30||;True|2025-04-10T14:57:30.2971224+05:30||;False|2025-04-10T14:45:40.9226450+05:30||;False|2025-04-10T14:44:38.5251400+05:30||;False|2025-04-10T14:37:23.1585741+05:30||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=DESKTOP-9II8JBF\SQLEXPRESS%3bInitial Catalog=employee%3bIntegrated Security=True%3bEncrypt=True%3bTrust Server Certificate=True</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

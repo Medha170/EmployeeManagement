@@ -5,7 +5,13 @@ namespace EmployeeManagementNew.Controllers
 {
     public class DepartmentController : Controller
     {
-        DepartmentDAL dal = new DepartmentDAL();
+        private readonly DepartmentDAL dal;
+
+        public DepartmentController(DepartmentDAL dal)
+        {
+            this.dal = dal;
+        }
+
         public IActionResult Index()
         {
             return View();

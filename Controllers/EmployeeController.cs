@@ -5,7 +5,12 @@ namespace EmployeeManagementNew.Controllers
 {
     public class EmployeeController : Controller
     {
-        EmployeeDAL dal = new EmployeeDAL();
+        private readonly EmployeeDAL dal;
+
+        public EmployeeController(EmployeeDAL dal)
+        {
+            this.dal = dal;
+        }
 
         public ActionResult Index()
         {

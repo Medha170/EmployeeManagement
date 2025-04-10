@@ -1,0 +1,340 @@
+﻿/* General Styles */
+body {
+    text-align: center;
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F2EFE7;
+    color: #333;
+}
+
+/* Headings */
+h2 {
+    font-weight: bold;
+    color: #006A71;
+    margin: 20px;
+}
+
+/* Buttons */
+button {
+    border: none;
+    background-color: #48A6A7;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    button:hover {
+        background-color: #57B4BA;
+        transform: scale(1.06);
+    }
+
+    button:active {
+        transform: scale(1);
+    }
+
+    /* Disabled Button */
+    button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+/* Add Employee Section */
+.addEmployee {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+/* Filters & Search */
+.filter-search, .pgNumber {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 15px auto;
+}
+
+/* Input Fields */
+input, select {
+    border: 2px solid #48A6A7;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #006A71;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+    input:focus, select:focus {
+        border-color: #57B4BA;
+        box-shadow: 0 0 8px rgba(72, 166, 167, 0.4);
+        outline: none;
+    }
+
+/* Search Bar */
+.search {
+    display: flex;
+    width: 60%;
+}
+
+    .search input {
+        flex-grow: 1;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+#btnSearch {
+    padding: 10px;
+    font-size: 14px;
+    width: auto;
+}
+
+/* Rows Per Page */
+.rowsPerPage {
+    display: flex;
+    align-items: center;
+    width: 20%;
+    justify-content: space-around;
+}
+
+    .rowsPerPage label {
+        color: #006A71;
+        font-weight: 500;
+    }
+
+/* Current Page */
+.currentPage {
+    color: #006A71;
+    display: flex;
+    align-items: center;
+    width: 20%;
+    justify-content: flex-end;
+}
+
+/* Table Styling */
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+    /* Table Head */
+    table thead {
+        background-color: #48A6A7;
+        color: white;
+        text-transform: uppercase;
+    }
+
+    table th, table td {
+        padding: 14px;
+        border: 1px solid #ddd;
+        text-align: left;
+        font-size: 14px;
+    }
+
+/* Align text and sorting icons properly */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Style for Sorting Icons */
+.sort-icons {
+    font-size: 12px;
+    line-height: 10px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+
+    /* Alternating Row Colors */
+    table tbody tr:nth-of-type(even) {
+        background-color: #f8f8f8;
+    }
+
+    table tbody tr:hover {
+        background-color: #f1f1f1;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Last Row */
+    table tbody tr:last-of-type {
+        border-bottom: 3px solid #48A6A7;
+    }
+
+    /* Table Buttons */
+    table tbody tr td button {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    padding-bottom: 50px;
+}
+
+    .pagination button {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filter-search, .pgNumber {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
+}
+
+/* Form Container */
+form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    margin: 20px auto;
+    margin-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+    form label {
+        color: #006A71;
+        font-weight: bold;
+        margin-bottom: 5px;
+        width: 100%;
+        text-align: left;
+    }
+
+    form input[type="text"],
+    form input[type="number"],
+    form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 2px solid #48A6A7;
+        border-radius: 5px;
+        color: #006A71;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        form input[type="text"]:focus,
+        form input[type="number"]:focus,
+        form select:focus {
+            border-color: #57B4BA;
+            box-shadow: 0 0 5px rgba(87, 180, 186, 0.5);
+            outline: none;
+        }
+
+    form input[type="radio"],
+    form input[type="checkbox"] {
+        margin-right: 5px;
+    }
+
+        form input[type="radio"] + label,
+        form input[type="checkbox"] + label {
+            margin-right: 20px;
+            color: #48A6A7;
+        }
+
+.genderVal {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+    .genderVal label {
+        margin-right: 10px;
+    }
+
+form div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.employee-active {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.active {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+form input::placeholder {
+    color: #48A6A7;
+    opacity: 0.7;
+}
+
+/* Improved Accessibility */
+*:focus-visible {
+    outline: 2px dashed #48A6A7;
+    outline-offset: 2px;
+}
+
+.getDeleted {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 90%;
+    max-width: 1200px;
+    margin: 15px auto;
+    gap: 8px;
+}
+
+.getDeleted label{
+    color: #006A71;
+}
