@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F2E41CA4-3DB2-4406-A6DD-0E1AE2514905}|EmployeeManagementNew.csproj|c:\\users\\brikh\\source\\repos\\employeemanagementnew\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F2E41CA4-3DB2-4406-A6DD-0E1AE2514905}|EmployeeManagementNew.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F2E41CA4-3DB2-4406-A6DD-0E1AE2514905}|EmployeeManagementNew.csproj|c:\\users\\brikh\\source\\repos\\employeemanagementnew\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{F2E41CA4-3DB2-4406-A6DD-0E1AE2514905}|EmployeeManagementNew.csproj|solutionrelative:docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F2E41CA4-3DB2-4406-A6DD-0E1AE2514905}|EmployeeManagementNew.csproj|c:\\users\\brikh\\source\\repos\\employeemanagementnew\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{F2E41CA4-3DB2-4406-A6DD-0E1AE2514905}|EmployeeManagementNew.csproj|solutionrelative:dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
@@ -17,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F2E41CA4-3DB2-4406-A6DD-0E1AE2514905}|EmployeeManagementNew.csproj|c:\\users\\brikh\\source\\repos\\employeemanagementnew\\employeemanagementnew.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{F2E41CA4-3DB2-4406-A6DD-0E1AE2514905}|EmployeeManagementNew.csproj|solutionrelative:employeemanagementnew.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F2E41CA4-3DB2-4406-A6DD-0E1AE2514905}|EmployeeManagementNew.csproj|c:\\users\\brikh\\source\\repos\\employeemanagementnew\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{F2E41CA4-3DB2-4406-A6DD-0E1AE2514905}|EmployeeManagementNew.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F2E41CA4-3DB2-4406-A6DD-0E1AE2514905}|EmployeeManagementNew.csproj|c:\\users\\brikh\\source\\repos\\employeemanagementnew\\properties\\publishprofiles\\iisprofile.pubxml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
@@ -70,28 +74,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "docker-compose.yml",
+              "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\docker-compose.yml",
+              "RelativeDocumentMoniker": "docker-compose.yml",
+              "ToolTip": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\docker-compose.yml",
+              "RelativeToolTip": "docker-compose.yml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2025-04-10T11:45:24.859Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Dockerfile",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\Dockerfile",
               "RelativeDocumentMoniker": "Dockerfile",
               "ToolTip": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\Dockerfile",
               "RelativeToolTip": "Dockerfile",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2025-04-10T11:16:13.492Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "IISProfile.pubxml",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\Properties\\PublishProfiles\\IISProfile.pubxml",
               "RelativeDocumentMoniker": "Properties\\PublishProfiles\\IISProfile.pubxml",
@@ -99,25 +112,24 @@
               "RelativeToolTip": "Properties\\PublishProfiles\\IISProfile.pubxml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2025-04-10T09:11:48.09Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-10T09:11:48.09Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
               "ToolTip": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABTAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-04-09T07:05:59.112Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "script.js",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\wwwroot\\js\\script.js",
               "RelativeDocumentMoniker": "wwwroot\\js\\script.js",
@@ -125,12 +137,11 @@
               "RelativeToolTip": "wwwroot\\js\\script.js",
               "ViewState": "AgIAAHoAAAAAAAAAAAAgwIAAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-04-02T10:23:49.943Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-02T10:23:49.943Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -138,12 +149,11 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T07:36:27.147Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-09T07:36:27.147Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "EmployeeManagementNew.csproj",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\EmployeeManagementNew.csproj",
               "RelativeDocumentMoniker": "EmployeeManagementNew.csproj",
@@ -151,12 +161,11 @@
               "RelativeToolTip": "EmployeeManagementNew.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-10T08:49:23.569Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-10T08:49:23.569Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "DepartmentController.cs",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\Controllers\\DepartmentController.cs",
               "RelativeDocumentMoniker": "Controllers\\DepartmentController.cs",
@@ -168,7 +177,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "DepartmentDAL.cs",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\Models\\DepartmentDAL.cs",
               "RelativeDocumentMoniker": "Models\\DepartmentDAL.cs",
@@ -176,12 +185,11 @@
               "RelativeToolTip": "Models\\DepartmentDAL.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAQwAkAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T07:19:37.08Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-09T07:19:37.08Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Form.cshtml",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\Views\\Employee\\Form.cshtml",
               "RelativeDocumentMoniker": "Views\\Employee\\Form.cshtml",
@@ -193,7 +201,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "form.js",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\wwwroot\\js\\form.js",
               "RelativeDocumentMoniker": "wwwroot\\js\\form.js",
@@ -205,7 +213,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "EmployeeController.cs",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\Controllers\\EmployeeController.cs",
               "RelativeDocumentMoniker": "Controllers\\EmployeeController.cs",
@@ -217,7 +225,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "EmployeeDAL.cs",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\Models\\EmployeeDAL.cs",
               "RelativeDocumentMoniker": "Models\\EmployeeDAL.cs",
@@ -225,12 +233,11 @@
               "RelativeToolTip": "Models\\EmployeeDAL.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T07:43:16.594Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-04T07:43:16.594Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Employee.cs",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\Models\\Employee.cs",
               "RelativeDocumentMoniker": "Models\\Employee.cs",
@@ -242,7 +249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "style.css",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\wwwroot\\css\\style.css",
               "RelativeDocumentMoniker": "wwwroot\\css\\style.css",
@@ -254,7 +261,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\brikh\\source\\repos\\EmployeeManagementNew\\Views\\Employee\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Employee\\Index.cshtml",
